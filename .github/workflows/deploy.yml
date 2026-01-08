@@ -1,0 +1,20 @@
+name: Deploy to GitHub Pages
+on:
+  push:
+    branches: [ "main" ] # 监听 main 分支的推送
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      - name: Install and Build
+        run: |
+          npm install
+          npm run build
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: gh-pages # 部署到的目标分支
+          folder: dist # 你的构建输出目录，根据项目可能是 build, public 等
