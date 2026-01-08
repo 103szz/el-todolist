@@ -15,4 +15,5 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url))
     },
   },
+   base: '/el-todolist/', // <-- 这是关键！请替换为你的实际仓库名
 })
