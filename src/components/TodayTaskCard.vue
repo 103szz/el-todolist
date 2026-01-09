@@ -87,11 +87,17 @@ function changeShow(task){
     console.log(`项目 ${task.id} 状态改为:`, task.show)
   }
 }
+const emit = defineEmits(['update:competedSum','delete:tasklist'])
 
+// const isDisabled=ref(false)
 function changeState(task){
   if(!task.competed){
+    confirm('是否确认当前任务已完成？')
     task.competed=true
-    console.log(`项目 ${task.id} 已完成`)
+    // 修改任务完成总数
+    emit('update:competedSum', task)
+    // isDisabled.value=true
+    
   }
 }
 
@@ -103,7 +109,7 @@ function getImportance(im){
 }
 
 const editDialogFormVisible=ref(false)
-const emit = defineEmits(['update:tasklist','delete:tasklist'])
+
 
 const deleteTask=(task)=>{
   const newtasklist = props.tasklist.filter(item => item.id !== task.id);

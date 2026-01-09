@@ -94,19 +94,22 @@ function getImportance(im){
   return isImportance[im_id]
   
 }
-const isDisabled=ref(false)
+// const isDisabled=ref(false)
 function changeState(task){
   if(!task.competed){
+        confirm('是否确认当前任务已完成？')
     task.competed=true
-    isDisabled.value=true
-    console.log(`项目 ${task.id} 已完成`)
+    // 修改任务完成总数
+    emit('update:competedSum', task)
+    // isDisabled.value=true
+    
     
   }
 
 }
 const editDialogFormVisible=ref(false)
 
-const emit = defineEmits(['delete:tasklist'])
+const emit = defineEmits(['delete:tasklist','update:competedSum'])
 
 const deleteTask=(task)=>{
   const newtasklist = props.tasklist.filter(item => item.id !== task.id);

@@ -40,7 +40,7 @@ interface ArrItem {
 const props = defineProps<{
   tasklist: ArrItem[],
   taskSum:number[],
-  // competedSum:number[]
+  competedSum:number[]
 }>()
 
 // const props=defineProps({
@@ -54,7 +54,7 @@ const props = defineProps<{
 //   },
 // })
 // const taskSum=ref(Array(12).fill(0))
-const competedSum=ref(Array(12).fill(0))
+// const competedSum=ref(Array(12).fill(0))
 // function getCompetedsum(){
 //   for(let i = 0; i < 12; i++){
 //     props.tasklist.forEach(task => {
@@ -108,7 +108,7 @@ const competedSum=ref(Array(12).fill(0))
 const calculatePercentage =(index) => {
  computed(() => {
     if (props.taskSum[index] === 0) return 0
-    return (competedSum[index] / props.taskSum[index]) * 100
+    return (props.competedSum[index] / props.taskSum[index]) * 100
   })
 }
 

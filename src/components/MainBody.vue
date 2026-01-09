@@ -8,8 +8,12 @@
       <el-container>
         <el-main>
           <!-- 新建事项 -->
-          <mydialog @add-task="handleAddTask" :tasklist="tasklist"/>
+          <mydialog @add-task="handleAddTask" 
+          :tasklist="tasklist"
+          />
           <tasks :tasklist="tasklist"
+          @update:competed-sum="handleCompetedsumUpdate"
+          :competedSum="competedSum"
           @delete:tasklist="DeleteListUpdate"
           :taskSum="taskSum"/>
         </el-main>
@@ -81,6 +85,8 @@ const competedSum=ref(Array(12).fill(0))
       console.log(createMonth+'月开始，'+competeMonth+'月完成');
       for(let i=createMonth;i<=competeMonth;i++){
         taskSum.value[i-1]+=1
+        console.log('新增任务');
+        
       }
 }
 
@@ -95,26 +101,19 @@ const DeleteListUpdate = (newList,deleteId) => {
   let competeMonth=Number(deleteTask.competeTime.split('-')[1])
   console.log(createMonth+'月开始，'+competeMonth+'月完成');
   for(let i=createMonth;i<=competeMonth;i++){
-    taskSum.value[i-1]+=1
+    taskSum.value[i-1]-=1
   tasklist.value = newList
   }
 
 }
-// const tasksum=ref(Array(12).fill(0))
-// const competedSum=ref(Array(12).fill(0))
-// function getTasksum(){
-//   for(let i = 0; i < 12; i++){
-//     tasklist.value.forEach(task => {
-//       let createMonth=Number(task.createTime.split('-')[1])
-//       let competeMonth=Number(task.competeTime.split('-')[1])
-//       if(createMonth<=(i+1)&&competeMonth>=(i+1)){
-//         tasksum.value[i]+=1
-//         if(task.competed){
-//           competedSum.value[i]+=1
-//         }
-//       }
-//     });
-//   }
-// }
-// getTasksum()
+const handleCompetedsumUpdate= (task) => {
+  let createMonth=Number(task.createTime.split('-')[1])
+  let competeMonth=Number(task.competeTime.split('-')[1])
+  console.log(createMonth+'月开始，'+competeMonth+'月完成');
+  for(let i=createMonth;i<=competeMonth;i++){
+    competedSum.value[i-1]+=1
+    console.log('新完成任务');
+    
+  }
+}
 </script>

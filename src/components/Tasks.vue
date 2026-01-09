@@ -4,11 +4,14 @@
     <el-tab-pane v-for="tab in tabs" :label="tab.name">
       <today-task-card :tasklist="todayTasks" v-if="tab.id===0"
       @update:tasklist="handleListUpdate"
-      @delete:tasklist="handleListDelete"/>
+      @delete:tasklist="handleListDelete"
+      @update:competed-sum="handleCompetedsumUpdate"/>
       <week-task-card :tasklist="sortByDate()" v-if="tab.id===1"
-      @delete:tasklist="handleListDelete"/>
+      @delete:tasklist="handleListDelete"
+      @update:competed-sum="handleCompetedsumUpdate"/>
       <month-task-card :tasklist="tasklist" v-if="tab.id===2"/>
       <year-task-card 
+      :competedSum="competedSum"
       :tasklist="tasklist"
       :taskSum="taskSum"
       v-if="tab.id===3"/>
@@ -54,7 +57,7 @@ interface ArrItem {
 const props = defineProps<{
   tasklist: ArrItem[],
   taskSum:number[],
-  // competedSum:number[]
+  competedSum:number[]
 }>()
 
 // const props=defineProps({
@@ -93,13 +96,17 @@ function sortByDate(dateField = 'competeTime') {
   return sortedTasklist
 }
 
-const emit = defineEmits(['update:tasklist','delete:tasklist'])
+const emit = defineEmits(['update:tasklist','delete:tasklist','update:competedSum'])
 const handleListUpdate = (newList) => {
   emit('update:tasklist', newList)
 }
 const handleListDelete = (newList,delteId) => {
   emit('delete:tasklist', newList,delteId)
 }
+const handleCompetedsumUpdate= (task) => {
+  emit('update:competedSum', task)
+}
+
 // const tasksum=ref(Array(12).fill(0))
 
 // const competedSum=ref(Array(12).fill(0))
