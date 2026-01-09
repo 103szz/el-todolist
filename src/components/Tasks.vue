@@ -3,13 +3,14 @@
   <el-tabs :tab-position="tabPosition"  class="demo-tabs">
     <el-tab-pane v-for="tab in tabs" :label="tab.name">
       <today-task-card :tasklist="todayTasks" v-if="tab.id===0"
-      @update:tasklist="handleListUpdate"/>
+      @update:tasklist="handleListUpdate"
+      @delete:tasklist="handleListDelete"/>
       <week-task-card :tasklist="sortByDate()" v-if="tab.id===1"
-      @update:tasklist="handleListUpdate"/>
+      @delete:tasklist="handleListDelete"/>
       <month-task-card :tasklist="tasklist" v-if="tab.id===2"/>
       <year-task-card 
-      :TaskSum="tasksum"
-      :competed-task-sum="competedSum"
+      :tasklist="tasklist"
+      :taskSum="taskSum"
       v-if="tab.id===3"/>
     </el-tab-pane>
   </el-tabs>
@@ -51,8 +52,24 @@ interface ArrItem {
 
 // 定义 Props
 const props = defineProps<{
-  tasklist: ArrItem[]
+  tasklist: ArrItem[],
+  taskSum:number[],
+  // competedSum:number[]
 }>()
+
+// const props=defineProps({
+//   tasklist: {
+//     type:Array as () => ArrItem[]
+//   },
+//     TaskSum: {
+//     type: Array as () => number[],
+//     default: () => Array(12).fill(0)  // 必须用函数返回
+//   },
+//     competedTaskSum: {
+//     type: Array as () => number[],
+//     default: () => Array(12).fill(0)  // 必须用函数返回
+//   },
+// })
 
 const today=new Date().toISOString().split('T')[0]
 const todayTasks = computed(() => {
@@ -76,31 +93,32 @@ function sortByDate(dateField = 'competeTime') {
   return sortedTasklist
 }
 
-const emit = defineEmits(['update:tasklist'])
+const emit = defineEmits(['update:tasklist','delete:tasklist'])
 const handleListUpdate = (newList) => {
   emit('update:tasklist', newList)
 }
-
-const tasksum=ref(Array(12).fill(0))
-
-const competedSum=ref(Array(12).fill(0))
-
-
-function getTasksum(){
-  for(let i = 0; i < 12; i++){
-    props.tasklist.forEach(task => {
-      let createMonth=Number(task.createTime.split('-')[1])
-      let competeMonth=Number(task.competeTime.split('-')[1])
-      if(createMonth<=(i+1)&&competeMonth>=(i+1)){
-        tasksum.value[i]+=1
-        if(task.competed){
-          competedSum.value[i]+=1
-        }
-      }
-    });
-  }
+const handleListDelete = (newList,delteId) => {
+  emit('delete:tasklist', newList,delteId)
 }
- getTasksum()
+// const tasksum=ref(Array(12).fill(0))
+
+// const competedSum=ref(Array(12).fill(0))
+
+
+// function getTasksum(){
+//   for(let i = 0; i < 12; i++){
+//     props.tasklist.forEach(task => {
+//       let createMonth=Number(task.createTime.split('-')[1])
+//       let competeMonth=Number(task.competeTime.split('-')[1])
+//       if(createMonth<=(i+1)&&competeMonth>=(i+1)){
+//         tasksum.value[i]+=1
+//         if(task.competed){
+//           competedSum.value[i]+=1
+//         }
+//       }
+//     });
+//   }
+// }
  
 
 </script>

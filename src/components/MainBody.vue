@@ -9,11 +9,9 @@
         <el-main>
           <!-- 新建事项 -->
           <mydialog @add-task="handleAddTask" :tasklist="tasklist"/>
-
-
-          
           <tasks :tasklist="tasklist"
-          @update:tasklist="handleListUpdate"/>
+          @delete:tasklist="DeleteListUpdate"
+          :taskSum="taskSum"/>
         </el-main>
         <el-aside>
           <div type="text">重要提醒</div>
@@ -64,6 +62,10 @@ interface Task {
   {id:createId(),name:"示例待办事项",content:"1.....2...3...",importance:"im2",createTime:"2026-01-04",competeTime:"2026-01-04",show: false,competed:false}
  ])
 
+
+ const taskSum=ref(Array(12).fill(0))
+const competedSum=ref(Array(12).fill(0))
+
  const handleAddTask = (newTask: Omit<Task, 'id'>) => {
   const taskWithId: Task = {
     id: createId(),
@@ -72,10 +74,47 @@ interface Task {
   // tasklist.value.push(taskWithId)
   tasklist.value = [...tasklist.value, taskWithId]
   console.log(tasklist.value);
+
+  // 新建任务时增加任务数量
+  let createMonth=Number(taskWithId.createTime.split('-')[1])
+      let competeMonth=Number(taskWithId.competeTime.split('-')[1])
+      console.log(createMonth+'月开始，'+competeMonth+'月完成');
+      for(let i=createMonth;i<=competeMonth;i++){
+        taskSum.value[i-1]+=1
+      }
 }
 
 const handleListUpdate = (newList) => {
   tasklist.value = newList
-}
 
+}
+const DeleteListUpdate = (newList,deleteId) => {
+  const deleteTask=tasklist.value.filter(item=>item.id==deleteId)[0]
+  
+  let createMonth=Number(deleteTask.createTime.split('-')[1])
+  let competeMonth=Number(deleteTask.competeTime.split('-')[1])
+  console.log(createMonth+'月开始，'+competeMonth+'月完成');
+  for(let i=createMonth;i<=competeMonth;i++){
+    taskSum.value[i-1]+=1
+  tasklist.value = newList
+  }
+
+}
+// const tasksum=ref(Array(12).fill(0))
+// const competedSum=ref(Array(12).fill(0))
+// function getTasksum(){
+//   for(let i = 0; i < 12; i++){
+//     tasklist.value.forEach(task => {
+//       let createMonth=Number(task.createTime.split('-')[1])
+//       let competeMonth=Number(task.competeTime.split('-')[1])
+//       if(createMonth<=(i+1)&&competeMonth>=(i+1)){
+//         tasksum.value[i]+=1
+//         if(task.competed){
+//           competedSum.value[i]+=1
+//         }
+//       }
+//     });
+//   }
+// }
+// getTasksum()
 </script>
