@@ -108,7 +108,6 @@ const emit = defineEmits(['update:tasklist','delete:tasklist'])
 const deleteTask=(task)=>{
   const newtasklist = props.tasklist.filter(item => item.id !== task.id);
   emit('delete:tasklist', newtasklist,task.id)
-  
   }
 
 </script>

@@ -106,11 +106,10 @@ function changeState(task){
 }
 const editDialogFormVisible=ref(false)
 
-const emit = defineEmits(['update:tasklist'])
+const emit = defineEmits(['delete:tasklist'])
 
 const deleteTask=(task)=>{
   const newtasklist = props.tasklist.filter(item => item.id !== task.id);
-  emit('update:tasklist', newtasklist)
-  
+  emit('delete:tasklist', newtasklist,task.id)
   }
 </script>
