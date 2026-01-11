@@ -48,11 +48,7 @@ interface Task {
   competed:boolean
 }
 
-// const tasklist=ref<Task[]>([
-  // {id:1,name:"示例待办事项",content:"1.....2...3...",importance:"im2",startTime:"2026-01-04",competeTime:"2026-01-04",show: false,competed:false}
-  // {id: 1,name:"示例待办事项",content:"1.....2...3...",importance:"im2",startTime:"2026-01-04",competeTime:"2026-01-04",show: false,competed:false}
 
-  // ])
   const createId = (() => {
   let id = 0
   
@@ -117,3 +113,7 @@ const handleCompetedsumUpdate= (task) => {
   }
 }
 </script>
+
+<style>
+
+</style>
