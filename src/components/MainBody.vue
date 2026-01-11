@@ -42,15 +42,15 @@ interface Task {
   name:string,
   content:string,
   importance:string,
-  createTime:string,
+  startTime:string,
   competeTime:string,
   show: boolean,
   competed:boolean
 }
 
 // const tasklist=ref<Task[]>([
-  // {id:1,name:"示例待办事项",content:"1.....2...3...",importance:"im2",createTime:"2026-01-04",competeTime:"2026-01-04",show: false,competed:false}
-  // {id: 1,name:"示例待办事项",content:"1.....2...3...",importance:"im2",createTime:"2026-01-04",competeTime:"2026-01-04",show: false,competed:false}
+  // {id:1,name:"示例待办事项",content:"1.....2...3...",importance:"im2",startTime:"2026-01-04",competeTime:"2026-01-04",show: false,competed:false}
+  // {id: 1,name:"示例待办事项",content:"1.....2...3...",importance:"im2",startTime:"2026-01-04",competeTime:"2026-01-04",show: false,competed:false}
 
   // ])
   const createId = (() => {
@@ -63,7 +63,7 @@ interface Task {
   }
 })()
  //const tasklist=ref<Task[]>([
- // {id:createId(),name:"示例待办事项",content:"1.....2...3...",importance:"im2",createTime:"2026-01-04",competeTime:"2026-01-04",show: false,competed:false}
+ // {id:createId(),name:"示例待办事项",content:"1.....2...3...",importance:"im2",startTime:"2026-01-04",competeTime:"2026-01-04",show: false,competed:false}
  //])
  const tasklist=ref<Task[]>([])
 
@@ -80,7 +80,7 @@ const competedSum=ref(Array(12).fill(0))
   console.log(tasklist.value);
 
   // 新建任务时增加任务数量
-  let createMonth=Number(taskWithId.createTime.split('-')[1])
+  let createMonth=Number(taskWithId.startTime.split('-')[1])
       let competeMonth=Number(taskWithId.competeTime.split('-')[1])
       console.log(createMonth+'月开始，'+competeMonth+'月完成');
       for(let i=createMonth;i<=competeMonth;i++){
@@ -97,7 +97,7 @@ const handleListUpdate = (newList) => {
 const DeleteListUpdate = (newList,deleteId) => {
   const deleteTask=tasklist.value.filter(item=>item.id==deleteId)[0]
   
-  let createMonth=Number(deleteTask.createTime.split('-')[1])
+  let createMonth=Number(deleteTask.startTime.split('-')[1])
   let competeMonth=Number(deleteTask.competeTime.split('-')[1])
   console.log(createMonth+'月开始，'+competeMonth+'月完成');
   for(let i=createMonth;i<=competeMonth;i++){
@@ -107,7 +107,7 @@ const DeleteListUpdate = (newList,deleteId) => {
 
 }
 const handleCompetedsumUpdate= (task) => {
-  let createMonth=Number(task.createTime.split('-')[1])
+  let createMonth=Number(task.startTime.split('-')[1])
   let competeMonth=Number(task.competeTime.split('-')[1])
   console.log(createMonth+'月开始，'+competeMonth+'月完成');
   for(let i=createMonth;i<=competeMonth;i++){

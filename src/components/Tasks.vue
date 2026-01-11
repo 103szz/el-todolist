@@ -47,7 +47,7 @@ interface ArrItem {
   name:string,
   content:string,
   importance:string,
-  createTime:string,
+  startTime:string,
   competeTime:string,
   show: boolean,
   competed:boolean
@@ -60,23 +60,10 @@ const props = defineProps<{
   competedSum:number[]
 }>()
 
-// const props=defineProps({
-//   tasklist: {
-//     type:Array as () => ArrItem[]
-//   },
-//     TaskSum: {
-//     type: Array as () => number[],
-//     default: () => Array(12).fill(0)  // 必须用函数返回
-//   },
-//     competedTaskSum: {
-//     type: Array as () => number[],
-//     default: () => Array(12).fill(0)  // 必须用函数返回
-//   },
-// })
 
 const today=new Date().toISOString().split('T')[0]
 const todayTasks = computed(() => {
-    return props.tasklist.filter(task => task.competeTime >= today && task.createTime <= today)
+    return props.tasklist.filter(task => task.competeTime >= today && task.startTime <= today)
   })
 console.log(todayTasks);
 
@@ -115,7 +102,7 @@ const handleCompetedsumUpdate= (task) => {
 // function getTasksum(){
 //   for(let i = 0; i < 12; i++){
 //     props.tasklist.forEach(task => {
-//       let createMonth=Number(task.createTime.split('-')[1])
+//       let createMonth=Number(task.startTime.split('-')[1])
 //       let competeMonth=Number(task.competeTime.split('-')[1])
 //       if(createMonth<=(i+1)&&competeMonth>=(i+1)){
 //         tasksum.value[i]+=1

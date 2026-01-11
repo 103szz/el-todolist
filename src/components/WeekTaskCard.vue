@@ -30,7 +30,7 @@
     <div v-show="task.show" style="max-height: 1000px">
       <!-- <p>{{task.show }}</p> -->
       <p>重要性：{{getImportance(task.importance) }}</p>
-      <p>创建时间：{{ task.createTime }}</p>
+      <p>创建时间：{{ task.startTime }}</p>
       <p>主要内容：{{ task.content }}</p>
     </div>
       </el-card>
@@ -57,7 +57,7 @@ interface ArrItem {
   name:string,
   content:string,
   importance:string,
-  createTime:string,
+  startTime:string,
   competeTime:string,
   show: boolean,
   competed:boolean

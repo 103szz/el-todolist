@@ -15,7 +15,7 @@
       </el-form-item>
       <el-form-item label="创建时间" :label-width="formLabelWidth" required>
          <el-date-picker
-        v-model="formData.createTime"
+        v-model="formData.startTime"
         type="date"
         placeholder="请选择日期"
 
@@ -62,7 +62,7 @@ interface Task {
   name:string,
   content:string,
   importance:string,
-  createTime:string,
+  startTime:string,
   competeTime:string,
   show: boolean,
   competed:boolean
@@ -79,7 +79,7 @@ const formData = reactive<Task>({
   name:'',
   content:'',
   importance:'',
-  createTime:new Date().toISOString().split('T')[0],
+  startTime:new Date().toISOString().split('T')[0],
   competeTime:new Date().toISOString().split('T')[0],
   show: false,
   competed:false
@@ -96,7 +96,7 @@ const handleSubmit = () => {
     return
   }
   formData.competeTime=new Date(formData.competeTime).toISOString().split('T')[0]
-  formData.createTime=new Date(formData.createTime).toISOString().split('T')[0]
+  formData.startTime=new Date(formData.startTime).toISOString().split('T')[0]
   
   // 触发事件，将表单数据发送给父组件
   emit('add-task', { ...formData })
@@ -114,7 +114,7 @@ const resetForm = () => {
   formData.name='',
   formData.content='',
   formData.importance='',
-  formData.createTime=new Date().toISOString().split('T')[0],
+  formData.startTime=new Date().toISOString().split('T')[0],
   formData.competeTime=new Date().toISOString().split('T')[0],
   formData.show=false,
   formData.competed=false

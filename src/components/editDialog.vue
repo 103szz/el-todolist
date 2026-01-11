@@ -10,7 +10,7 @@
       </el-form-item>
       <el-form-item label="创建时间" :label-width="formLabelWidth" required>
          <el-date-picker
-        v-model="formData.createTime"
+        v-model="formData.startTime"
         type="date"
         placeholder="请选择日期"
 
@@ -55,7 +55,7 @@ interface Task {
   name:string,
   content:string,
   importance:string,
-  createTime:string,
+  startTime:string,
   competeTime:string,
   show: boolean,
   competed:boolean
@@ -86,7 +86,7 @@ const formData = reactive<Task>({
   name:props.task.name,
   content:props.task.content,
   importance:props.task.importance,
-  createTime:props.task.createTime,
+  startTime:props.task.startTime,
   competeTime:props.task.competeTime,
   show: props.task.show,
   competed:props.task.competed
@@ -97,8 +97,8 @@ const handleSubmit = () => {
   if(formData.competeTime!=props.task.competeTime){
     formData.competeTime=new Date(formData.competeTime).toISOString().split('T')[0]
   }
-  if(formData.createTime!=props.task.createTime)
-    formData.createTime=new Date(formData.createTime).toISOString().split('T')[0]
+  if(formData.startTime!=props.task.startTime)
+    formData.startTime=new Date(formData.startTime).toISOString().split('T')[0]
   for (let key in formData) {
   if (formData.hasOwnProperty(key)) {
     props.task[key] = formData[key];
@@ -116,7 +116,7 @@ const resetForm = () => {
   formData.name=props.task.name,
   formData.content=props.task.content,
   formData.importance=props.task.importance,
-  formData.createTime=props.task.createTime,
+  formData.startTime=props.task.startTime,
   formData.competeTime=props.task.competeTime,
   formData.show=props.task.show,
   formData.competed=props.task.competed
