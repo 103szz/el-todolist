@@ -62,10 +62,10 @@ interface Task {
     return result
   }
 })()
- const tasklist=ref<Task[]>([
-  {id:createId(),name:"示例待办事项",content:"1.....2...3...",importance:"im2",createTime:"2026-01-04",competeTime:"2026-01-04",show: false,competed:false}
- ])
-
+ //const tasklist=ref<Task[]>([
+ // {id:createId(),name:"示例待办事项",content:"1.....2...3...",importance:"im2",createTime:"2026-01-04",competeTime:"2026-01-04",show: false,competed:false}
+ //])
+ const tasklist=ref<Task[]>([])
 
  const taskSum=ref(Array(12).fill(0))
 const competedSum=ref(Array(12).fill(0))
