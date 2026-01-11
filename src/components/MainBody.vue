@@ -1,12 +1,13 @@
   <template>
       <div class="common-layout">
-    <el-container>
+    <el-container class="mainContainer">
       <el-header>
-        <h3>待办任务管理器</h3>
-        <p>日期：{{ date }}</p>
+        <h3 class="appName">待办任务管理器</h3>
+        <p class="headTime">日期：{{ date }}</p>
       </el-header>
       <el-container>
         <el-main>
+          <div class="mainTitle" type="text">待办事项清单</div>
           <!-- 新建事项 -->
           <mydialog @add-task="handleAddTask" 
           :tasklist="tasklist"
@@ -18,7 +19,7 @@
           :taskSum="taskSum"/>
         </el-main>
         <el-aside>
-          <div type="text">重要提醒</div>
+          <div class="asideTitle" type="text">重要提醒</div>
           <aside-timeline :tasklist="tasklist"/>
         </el-aside>
       </el-container>
@@ -114,6 +115,36 @@ const handleCompetedsumUpdate= (task) => {
 }
 </script>
 
-<style>
+<style scoped>
+.mainContainer{
+    height: 700px;
+;
+  }
+.el-header{
+  height: 100px;
+  background-color: rgb(198, 226, 255);
+}
 
+.appName{
+    text-align: center;
+  }
+.headTime{
+  text-align: end;
+}
+.el-aside{
+  background-color: rgb(253, 226, 226);
+}
+.el-main{
+  background-color: rgb(233, 233, 235);
+}
+.el-aside{
+  padding: 20px;
+}
+.mainTitle{
+  padding: 10px;
+}
+.asideTitle{
+  text-align: center;
+  padding: 10px;
+}
 </style>

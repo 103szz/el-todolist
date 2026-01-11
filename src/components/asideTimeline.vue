@@ -22,12 +22,14 @@ const importantTask = computed(() => {
     return props.tasklist.filter(task => task.importance == 'im2')
   })
 
+
 </script>
 <template>
   <el-timeline style="max-width: 600px">
     <el-timeline-item center 
     v-for="task in importantTask"
     :timestamp='task.competeTime' 
+    color='rgb(196, 86, 86)'
     placement="top">
       <el-card>
         <p>{{task.name}}</p>
